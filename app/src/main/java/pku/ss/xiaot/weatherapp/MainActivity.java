@@ -67,9 +67,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onResume();
         Toast toast;
         if (NetUtil.getNetworkState(this) == NetUtil.NETWORN_NONE) {
-            toast = Toast.makeText(this, "应用需要联网", Toast.LENGTH_LONG);
+            toast = Toast.makeText(this, "请连接网络", Toast.LENGTH_LONG);
         } else {
-            toast = Toast.makeText(this, "应用联网类型 ：" + NetUtil.getNetworkState(this), Toast.LENGTH_LONG);
+            toast = Toast.makeText(this, "连接网络 ：" + NetUtil.getNetworkState(this), Toast.LENGTH_LONG);
         }
         toast.show();
     }
