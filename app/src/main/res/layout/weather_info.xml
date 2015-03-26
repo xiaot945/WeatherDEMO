@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:background="#ffcd2626"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/title_city_manager"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:src="@drawable/title_city" />
+
+        <ImageView
+            android:id="@+id/city_seperator"
+            android:layout_width="1.0dip"
+            android:layout_height="40dip"
+            android:layout_marginTop="2.0dip"
+            android:layout_toRightOf="@id/title_city_manager"
+            android:background="#A71717" />
+
+        <TextView
+            android:id="@+id/titlt_city_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/city_seperator"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dip"
+            android:text="北京天气"
+            android:textColor="@color/white"
+            android:textSize="22.0sp" />
+
+        <ImageView
+            android:id="@+id/title_update_btn"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:src="@drawable/title_update" />
+
+        <ImageView
+            android:id="@+id/title_share"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_toLeftOf="@id/title_update_btn"
+            android:src="@drawable/title_share" />
+
+
+        <ImageView
+            android:id="@+id/title_location"
+            android:layout_width="45.0dip"
+            android:layout_height="45.0dip"
+            android:layout_toLeftOf="@id/title_share"
+            android:src="@drawable/base_action_bar_action_city" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bodys"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title"
+        android:background="@drawable/biz_plugin_weather_shenzhen_bg">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/city_loaction"
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp"
+                        android:gravity="center"
+                        android:text="@string/str_location"
+                        android:textColor="@color/white"
+                        android:textSize="50sp" />
+
+                    <TextView
+                        android:id="@+id/update_info"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/city_loaction"
+                        android:gravity="center"
+                        android:text="@string/str_uppdate_info"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/update_info"
+                        android:gravity="center"
+                        android:text="@string/str_humidity"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/wendu"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/humidity"
+                        android:gravity="center"
+                        android:text="@string/str_wendu"
+                        android:textColor="@color/white"
+                        android:textSize="25sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:id="@+id/pm_info"
+                        android:layout_width="fill_parent"
+                        android:layout_height="100dp">
+
+                        <TextView
+                            android:id="@+id/pm"
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:text="@string/str_pm"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/pm_value"
+                            android:layout_width="100dp"
+                            android:layout_height="80dp"
+                            android:layout_below="@id/pm"
+                            android:text="@string/str_pm_value"
+                            android:textColor="@color/white"
+                            android:textSize="50sp" />
+
+                        <ImageView
+                            android:id="@+id/pm_img"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_toRightOf="@id/pm_value"
+                            android:background="@drawable/biz_plugin_weather_0_50" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/pm_info"
+                        android:gravity="center"
+                        android:text="@string/str_air_quality"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:id="@+id/quality" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/today_weather"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/pic_today_weather"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/biz_plugin_weather_qing" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@id/pic_today_weather">
+
+                    <TextView
+                        android:id="@+id/today_info"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/str_today_info"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/temperature"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/today_info"
+                        android:gravity="center_vertical"
+                        android:text="@string/str_temperature"
+                        android:textColor="@color/white"
+                        android:textSize="45sp" />
+
+                    <TextView
+                        android:id="@+id/weather_change"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/temperature"
+                        android:gravity="center_vertical"
+                        android:text="@string/str_weather_change"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/weather_change"
+                        android:gravity="center_vertical"
+                        android:text="@string/str_wind"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:id="@+id/wind" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#ffffffff"></RelativeLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

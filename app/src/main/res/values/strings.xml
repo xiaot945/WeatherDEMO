@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">WeatherAPP</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="str_today_info">今天 星期三</string>
+    <string name="str_temperature">5℃~-5℃</string>
+    <string name="str_weather_change">晴转多云</string>
+    <string name="str_wind">微风</string>
+    <string name="str_location">北京</string>
+    <string name="str_uppdate_info">今天 13:45 发布</string>
+    <string name="str_humidity">湿度:75%</string>
+    <string name="str_air_quality">轻度污染</string>
+    <string name="str_pm">pm 2.5</string>
+    <string name="str_pm_value">125</string>
+    <string name="str_wendu">11℃</string>
+</resources>
