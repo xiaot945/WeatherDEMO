@@ -2,6 +2,7 @@ package pku.ss.xiaot.weatherapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -30,6 +31,21 @@ public class GuidePager extends Activity implements ViewPager.OnPageChangeListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+        String isFrirstRun = sharedPreferences.getString("isFirst",
+                "yes");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("isFirst", "no");
+        editor.commit();
+        if (isFrirstRun.equals("no")) {
+            Intent intent = new Intent(GuidePager.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.activity_guide_pager);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewList = new ArrayList<View>();
