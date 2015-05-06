@@ -31,9 +31,18 @@
             android:layout_toRightOf="@id/city_seperator"
             android:gravity="center_vertical"
             android:paddingLeft="5dip"
-            android:text="北京天气"
+            android:text="WeatherAPP"
             android:textColor="@color/white"
             android:textSize="22.0sp" />
+
+        <ProgressBar
+            android:id="@+id/title_update_progress"
+            style="@style/title_update_progressbar_style"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/title_update_btn"
@@ -41,7 +50,10 @@
             android:layout_height="45.0dip"
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
-            android:src="@drawable/title_update" />
+            android:layout_toLeftOf="@id/title_update_progress"
+            android:src="@drawable/title_update"
+            android:visibility="visible" />
+
 
         <ImageView
             android:id="@+id/title_share"
@@ -160,14 +172,14 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/quality"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/pm_info"
                         android:gravity="center"
                         android:text="@string/str_air_quality"
                         android:textColor="@color/white"
-                        android:textSize="25sp"
-                        android:id="@+id/quality" />
+                        android:textSize="25sp" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -217,30 +229,47 @@
                         android:gravity="center_vertical"
                         android:text="@string/str_weather_change"
                         android:textColor="@color/white"
-                        android:textSize="30sp" />
+                        android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/wind"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
                         android:layout_below="@id/weather_change"
                         android:gravity="center_vertical"
                         android:text="@string/str_wind"
                         android:textColor="@color/white"
-                        android:textSize="30sp"
-                        android:id="@+id/wind" />
+                        android:textSize="20sp" />
 
                 </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/footer"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#ffffffff"></RelativeLayout>
+                android:layout_weight="1">
+
+                <HorizontalScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:id="@+id/other_days"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="horizontal">
+                        <include android:id="@+id/orther1" layout="@layout/other_day_item"></include>
+                        <include android:id="@+id/orther2" layout="@layout/other_day_item"></include>
+                        <include android:id="@+id/orther3" layout="@layout/other_day_item"></include>
+                        <include android:id="@+id/orther4" layout="@layout/other_day_item"></include>
+                        <include android:id="@+id/orther5" layout="@layout/other_day_item"></include>
+                        <include android:id="@+id/orther6" layout="@layout/other_day_item"></include>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </RelativeLayout>
         </LinearLayout>
-
-
     </RelativeLayout>
-
-
 </RelativeLayout>

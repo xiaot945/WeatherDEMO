@@ -21,7 +21,7 @@ public class StaticValue {
         weatherTypeMap.put("雷阵雨", R.drawable.biz_plugin_weather_leizhenyu);
         weatherTypeMap.put("雷阵雨冰雹", R.drawable.biz_plugin_weather_leizhenyubingbao);
         weatherTypeMap.put("晴", R.drawable.biz_plugin_weather_qing);
-        weatherTypeMap.put("沙尘暴", R.drawable.biz_plugin_weather_shachenbao);
+        weatherTypeMap.put("扬沙", R.drawable.biz_plugin_weather_shachenbao);
         weatherTypeMap.put("特大暴雨", R.drawable.biz_plugin_weather_tedabaoyu);
         weatherTypeMap.put("雾", R.drawable.biz_plugin_weather_wu);
         weatherTypeMap.put("小雪", R.drawable.biz_plugin_weather_xiaoxue);

@@ -14,4 +14,6 @@
     <string name="str_pm">pm 2.5</string>
     <string name="str_pm_value">125</string>
     <string name="str_wendu">11℃</string>
+    <string name="title_activity_select_city">SelectCityActivity</string>
+    <string name="guide_pager_name">guide</string>
 </resources>
