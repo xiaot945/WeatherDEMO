@@ -127,4 +127,16 @@ public class MyApplication extends Application {
     public String[] getCityByName(String name) {
         return mCityDB.getCityByName(name);
     }
+
+    public String[] getMycity() {
+        return mCityDB.getMycity();
+    }
+
+    public void insertNewMycity(String cityCode) {
+        mCityDB.insertNewMyCity(cityCode);
+    }
+
+    public void removeMycity(String cityCode) {
+        mCityDB.removeMycity(cityCode);
+    }
 }

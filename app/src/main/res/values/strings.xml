@@ -16,4 +16,5 @@
     <string name="str_wendu">11℃</string>
     <string name="title_activity_select_city">SelectCityActivity</string>
     <string name="guide_pager_name">guide</string>
+    <string name="title_activity_city_manager">CityManagerActivity</string>
 </resources>

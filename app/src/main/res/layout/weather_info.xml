@@ -16,6 +16,13 @@
             android:layout_height="45.0dip"
             android:src="@drawable/title_city" />
 
+        <!--<ImageView-->
+            <!--android:id="@+id/title_mycity"-->
+            <!--android:layout_width="45.0dip"-->
+            <!--android:layout_height="45.0dip"-->
+            <!--android:src="@drawable/title_city"-->
+            <!--android:layout_toRightOf="@id/title_city_manager"/>-->
+
         <ImageView
             android:id="@+id/city_seperator"
             android:layout_width="1.0dip"
@@ -24,16 +31,16 @@
             android:layout_toRightOf="@id/title_city_manager"
             android:background="#A71717" />
 
-        <TextView
-            android:id="@+id/titlt_city_name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_toRightOf="@id/city_seperator"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dip"
-            android:text="WeatherAPP"
-            android:textColor="@color/white"
-            android:textSize="22.0sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/titlt_city_name"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_toRightOf="@id/city_seperator"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:paddingLeft="5dip"-->
+            <!--android:text="WeatherAPP"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="22.0sp" />-->
 
         <ProgressBar
             android:id="@+id/title_update_progress"
@@ -64,7 +71,7 @@
 
 
         <ImageView
-            android:id="@+id/title_location"
+            android:id="@+id/title_mycity"
             android:layout_width="45.0dip"
             android:layout_height="45.0dip"
             android:layout_toLeftOf="@id/title_share"

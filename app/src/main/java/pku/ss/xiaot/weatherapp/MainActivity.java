@@ -57,6 +57,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private ImageView pmImageview = null;
     private ImageView weatherImageView = null;
     private ImageView selectCityImageView = null;
+    private ImageView mycityImageView = null;
     private ProgressBar updateProgressBar = null;
 
     private TextView cityTextView = null;
@@ -71,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private TextView wenduTextView = null;
     private LinearLayout ortherdayLinearLayout = null;
     private static final int[] otherIDArray = {R.id.orther1, R.id.orther2, R.id.orther3, R.id.orther4, R.id.orther5, R.id.orther6};
-//    private List<LinearLayout> otherWeatherLinearLayoutList = new ArrayList<LinearLayout>();
+    //    private List<LinearLayout> otherWeatherLinearLayoutList = new ArrayList<LinearLayout>();
     private List<LinearLayout> otherLinearLayoutList = new ArrayList<LinearLayout>();
     private String cityCode = null;
 
@@ -84,6 +85,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         selectCityImageView = (ImageView) findViewById(R.id.title_city_manager);
         updateProgressBar = (ProgressBar) findViewById(R.id.title_update_progress);
         ortherdayLinearLayout = (LinearLayout) findViewById(R.id.other_days);
+        mycityImageView = (ImageView) findViewById(R.id.title_mycity);
+        mycityImageView.setOnClickListener(this);
         updateImageView.setOnClickListener(this);
         selectCityImageView.setOnClickListener(this);
 
@@ -104,8 +107,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
             cityCode = sharedPreferences.getString("main_city_code", "101010100");
         }
-//        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-//        cityCode = sharedPreferences.getString("main_city_code", "101010100");
+        //        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+        //        cityCode = sharedPreferences.getString("main_city_code", "101010100");
         queryWeatherCode(cityCode);
     }
 
@@ -152,6 +155,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.title_city_manager:
                 Intent intent = new Intent(MainActivity.this, SelectCityActivity.class);
                 startActivityForResult(intent, 1);
+                break;
+            case R.id.title_mycity:
+                Intent i = new Intent(MainActivity.this, CityManagerActivity.class);
+                startActivityForResult(i, 1);
                 break;
             default:
                 break;
@@ -342,9 +349,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 eventType = parser.next();
             }
             Log.d(TAG, "parse otherday XML");
-        } catch (
-                Exception e
-                )
+        } catch (Exception e)
 
         {
             e.printStackTrace();
@@ -433,7 +438,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 weatherImageView.setBackgroundResource(wId);
             }
             Log.d("add View", "" + i);
-           // ortherdayLinearLayout.addView(otherWeatherLinearLayout);
+            // ortherdayLinearLayout.addView(otherWeatherLinearLayout);
         }
         Log.d("updateOtherWeather", "otherday 更新完成");
     }

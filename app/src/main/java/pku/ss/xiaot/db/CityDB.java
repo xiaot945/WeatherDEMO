@@ -17,6 +17,7 @@ public class CityDB {
 
     public static final String CITY_DB_NAME = "city2.db";
     private static final String CITY_TABLE_NAME = "city";
+    private static final String MYCITY_TABLE_NAME = "mycity";
     private SQLiteDatabase db;
 
     public CityDB(Context context, String path) {
@@ -87,5 +88,35 @@ public class CityDB {
             n = c.getString(c.getColumnIndex("number"));
         }
         return n;
+    }
+
+    public String[] getMycity() {
+        List<String> list = new ArrayList<String>();
+        Cursor c = db.rawQuery("SELECT city, province FROM " + CITY_TABLE_NAME + ", " +
+                "" + MYCITY_TABLE_NAME + " WHERE mycity.number=city.number", null);
+        while (c.moveToNext()) {
+            String city = c.getString(c.getColumnIndex("city"));
+            String province = c.getString(c.getColumnIndex("province"));
+            list.add(province + ", " + city);
+        }
+        return StaticFunction.list2StringArray(list);
+    }
+
+    public void insertNewMyCity(String citycode) {
+        int c = Integer.parseInt(citycode);
+        try {
+            db.execSQL("INSERT INTO mycity VALUES(" + c + ",0)");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeMycity(String cityCode) {
+        int c = Integer.parseInt(cityCode);
+        try {
+            db.execSQL("DELETE FROM mycity WHERE number=" + c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
