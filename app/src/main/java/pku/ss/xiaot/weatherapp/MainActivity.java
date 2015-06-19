@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,6 +77,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private List<LinearLayout> otherLinearLayoutList = new ArrayList<LinearLayout>();
     private String cityCode = null;
 
+    private static final String CITY_CODE = "main_city_code";
+    private static final String PRE_TIME = "pre_time";
+    private static final String PRE_XML = "pre_xml";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,15 +104,37 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         Toast toast;
+        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
         if (NetUtil.getNetworkState(this) == NetUtil.NETWORN_NONE) {
             toast = Toast.makeText(this, "请连接网络", Toast.LENGTH_LONG);
             toast.show();
         }
         if (cityCode == null) {
-            SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-            cityCode = sharedPreferences.getString("main_city_code", "101010100");
+            cityCode = sharedPreferences.getString(CITY_CODE, "101010100");
         }
-        queryWeatherCode(cityCode);
+        long preTime = sharedPreferences.getLong(PRE_TIME, 0L);
+        String preXMl = sharedPreferences.getString(PRE_XML, "nothing");
+        long nowTime = new Date().getTime();
+        if ((nowTime - preTime > 2 * 60 * 1000) && !preXMl.equals("nothing")) {
+            Log.d(TAG, "load the weather in SharedPreferences");
+            convertVisibility();
+            TodayWeather tw = parseXML(preXMl);
+            List<HashMap<String, String>> otherWeatherList = parseOtherWeather(preXMl);
+            if (tw != null) {
+                Message msg = new Message();
+                msg.what = UPDATE_TODAY_WEATHER;
+                msg.obj = tw;
+                mHandler.sendMessage(msg);
+            }
+            if (otherWeatherList.size() > 0) {
+                Message msg = new Message();
+                msg.what = UPDATE_OTHER_WEATHER;
+                msg.obj = otherWeatherList;
+                mHandler.sendMessage(msg);
+            }
+        } else {
+            queryWeatherCode(cityCode);
+        }
     }
 
     @Override
@@ -164,7 +191,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
-    private void queryWeatherCode(String cityCode) {
+    private void queryWeatherCode(final String cityCode) {
         convertVisibility();
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d(TAG, address);
@@ -185,7 +212,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         while ((str = bf.readLine()) != null) {
                             sb.append(str);
                         }
-                        Log.d(TAG, sb.toString());
+//                        Log.d(TAG, sb.toString());
                         TodayWeather tw = parseXML(sb.toString());
                         List<HashMap<String, String>> otherWeatherList = parseOtherWeather(sb.toString());
                         if (tw != null) {
@@ -200,6 +227,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                             msg.obj = otherWeatherList;
                             mHandler.sendMessage(msg);
                         }
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(PRE_XML, sb.toString());
+                        editor.putLong(PRE_TIME, new Date().getTime());
+                        editor.putString(CITY_CODE, cityCode);
+                        editor.commit();
+                        Log.d(TAG, "save the weather in SharedPreferences");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -446,7 +481,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             switch (msg.what) {
                 case UPDATE_TODAY_WEATHER:
                     updateTodayWeather((TodayWeather) msg.obj);
-
                     break;
                 case UPDATE_OTHER_WEATHER:
                     ArrayList<HashMap<String, String>> l = (ArrayList<HashMap<String, String>>) msg.obj;
