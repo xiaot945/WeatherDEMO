@@ -1,4 +1,4 @@
-package pku.ss.xiaot.pku.ss.xiaot.viewpager;
+package pku.ss.xiaot.etc;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

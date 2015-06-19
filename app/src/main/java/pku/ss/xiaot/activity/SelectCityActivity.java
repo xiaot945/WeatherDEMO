@@ -1,4 +1,4 @@
-package pku.ss.xiaot.weatherapp;
+package pku.ss.xiaot.activity;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import pku.ss.xiaot.app.MyApplication;
+import pku.ss.xiaot.etc.MyApplication;
 
 
 public class SelectCityActivity extends ActionBarActivity implements View.OnClickListener {

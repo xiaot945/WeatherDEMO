@@ -1,4 +1,4 @@
-package pku.ss.xiaot.weatherapp;
+package pku.ss.xiaot.etc;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pku.ss.xiaot.pku.ss.xiaot.viewpager.ViewPagerAdapter;
+import pku.ss.xiaot.activity.MainActivity;
+import pku.ss.xiaot.activity.R;
 
 
 public class GuidePager extends Activity implements ViewPager.OnPageChangeListener, View.OnClickListener {

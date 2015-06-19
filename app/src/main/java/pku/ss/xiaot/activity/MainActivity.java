@@ -1,4 +1,4 @@
-package pku.ss.xiaot.weatherapp;
+package pku.ss.xiaot.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +22,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -36,13 +32,12 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.zip.GZIPInputStream;
 
 import pku.ss.xiaot.bean.TodayWeather;
+import pku.ss.xiaot.etc.PullToRefreshListener;
+import pku.ss.xiaot.etc.RefreshableView;
 import pku.ss.xiaot.util.NetUtil;
 import pku.ss.xiaot.util.StaticValue;
 
@@ -81,6 +76,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private static final String PRE_TIME = "pre_time";
     private static final String PRE_XML = "pre_xml";
 
+    private RefreshableView refreshableView;
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,43 +96,30 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         for (int i = 0; i < otherIDArray.length; i++)
             otherLinearLayoutList.add((LinearLayout) findViewById(otherIDArray[i]));
         this.initView();
+
+        refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
+        listView = (ListView) findViewById(R.id.list_view);
+
+        refreshableView.setOnRefreshListener(new PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    Thread.sleep(3000);
+
+                    refresh();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableView.finishRefreshing();
+            }
+        }, 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Toast toast;
-        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-        if (NetUtil.getNetworkState(this) == NetUtil.NETWORN_NONE) {
-            toast = Toast.makeText(this, "请连接网络", Toast.LENGTH_LONG);
-            toast.show();
-        }
-        if (cityCode == null) {
-            cityCode = sharedPreferences.getString(CITY_CODE, "101010100");
-        }
-        long preTime = sharedPreferences.getLong(PRE_TIME, 0L);
-        String preXMl = sharedPreferences.getString(PRE_XML, "nothing");
-        long nowTime = new Date().getTime();
-        if ((nowTime - preTime > 2 * 60 * 1000) && !preXMl.equals("nothing")) {
-            Log.d(TAG, "load the weather in SharedPreferences");
-            convertVisibility();
-            TodayWeather tw = parseXML(preXMl);
-            List<HashMap<String, String>> otherWeatherList = parseOtherWeather(preXMl);
-            if (tw != null) {
-                Message msg = new Message();
-                msg.what = UPDATE_TODAY_WEATHER;
-                msg.obj = tw;
-                mHandler.sendMessage(msg);
-            }
-            if (otherWeatherList.size() > 0) {
-                Message msg = new Message();
-                msg.what = UPDATE_OTHER_WEATHER;
-                msg.obj = otherWeatherList;
-                mHandler.sendMessage(msg);
-            }
-        } else {
-            queryWeatherCode(cityCode);
-        }
+        refresh();
     }
 
     @Override
@@ -212,7 +197,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         while ((str = bf.readLine()) != null) {
                             sb.append(str);
                         }
-//                        Log.d(TAG, sb.toString());
+                        //                        Log.d(TAG, sb.toString());
                         TodayWeather tw = parseXML(sb.toString());
                         List<HashMap<String, String>> otherWeatherList = parseOtherWeather(sb.toString());
                         if (tw != null) {
@@ -495,12 +480,47 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     };
 
     private void convertVisibility() {
-        if (updateImageView.getVisibility() == View.VISIBLE) {
-            updateImageView.setVisibility(View.GONE);
-            updateProgressBar.setVisibility(View.VISIBLE);
+//        if (updateImageView.getVisibility() == View.VISIBLE) {
+//            updateImageView.setVisibility(View.GONE);
+//            updateProgressBar.setVisibility(View.VISIBLE);
+//        } else {
+//            updateImageView.setVisibility(View.VISIBLE);
+//            updateProgressBar.setVisibility(View.GONE);
+//        }
+    }
+
+    private void refresh() {
+        Toast toast;
+        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+        if (NetUtil.getNetworkState(this) == NetUtil.NETWORK_NONE) {
+            toast = Toast.makeText(this, "请连接网络", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        if (cityCode == null) {
+            cityCode = sharedPreferences.getString(CITY_CODE, "101010100");
+        }
+        long preTime = sharedPreferences.getLong(PRE_TIME, 0L);
+        String preXMl = sharedPreferences.getString(PRE_XML, "nothing");
+        long nowTime = new Date().getTime();
+        if ((nowTime - preTime > 2 * 60 * 1000) && !preXMl.equals("nothing")) {
+            Log.d(TAG, "load the weather in SharedPreferences");
+            convertVisibility();
+            TodayWeather tw = parseXML(preXMl);
+            List<HashMap<String, String>> otherWeatherList = parseOtherWeather(preXMl);
+            if (tw != null) {
+                Message msg = new Message();
+                msg.what = UPDATE_TODAY_WEATHER;
+                msg.obj = tw;
+                mHandler.sendMessage(msg);
+            }
+            if (otherWeatherList.size() > 0) {
+                Message msg = new Message();
+                msg.what = UPDATE_OTHER_WEATHER;
+                msg.obj = otherWeatherList;
+                mHandler.sendMessage(msg);
+            }
         } else {
-            updateImageView.setVisibility(View.VISIBLE);
-            updateProgressBar.setVisibility(View.GONE);
+            queryWeatherCode(cityCode);
         }
     }
 }

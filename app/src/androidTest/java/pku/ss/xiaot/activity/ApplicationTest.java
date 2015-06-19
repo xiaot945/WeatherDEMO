@@ -1,4 +1,4 @@
-package pku.ss.xiaot.weatherapp;
+package pku.ss.xiaot.activity;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,23 +1,20 @@
-package pku.ss.xiaot.weatherapp;
+package pku.ss.xiaot.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import pku.ss.xiaot.app.MyApplication;
+import pku.ss.xiaot.etc.MyApplication;
 
 
 public class CityManagerActivity extends ActionBarActivity implements View.OnClickListener {

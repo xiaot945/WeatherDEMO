@@ -1,4 +1,4 @@
-package pku.ss.xiaot.app;
+package pku.ss.xiaot.etc;
 
 import android.app.Application;
 import android.os.Environment;

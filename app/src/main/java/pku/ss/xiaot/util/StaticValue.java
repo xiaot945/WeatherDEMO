@@ -2,7 +2,7 @@ package pku.ss.xiaot.util;
 
 import java.util.HashMap;
 
-import pku.ss.xiaot.weatherapp.R;
+import pku.ss.xiaot.activity.R;
 
 /**
  * Created by xiaot on 2015/3/26.
