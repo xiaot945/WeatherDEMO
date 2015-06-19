@@ -107,8 +107,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
             cityCode = sharedPreferences.getString("main_city_code", "101010100");
         }
-        //        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-        //        cityCode = sharedPreferences.getString("main_city_code", "101010100");
         queryWeatherCode(cityCode);
     }
 
